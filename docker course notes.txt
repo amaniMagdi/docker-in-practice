@@ -1,0 +1,58 @@
+#################
+#  Dockerfile	#
+#################
+
+# docker file used in this project with details, note that Docker extension in VS code help more in writing the file.
+> this line to load the baseImage but for simplicity you can use (FROM node:14) here 14 is node version or (FROM python), use From and the baseimage for your project.
+FROM baseImage
+
+> the working directory, any name you want, will create dir for the app you want to dockerize it.
+WORKDIR /app
+
+> will copy package.json file to the working dir pecified in the Dockerfile /app
+COPY package.json .
+
+> to run command npm install , to install all package.json packages
+RUN npm install
+
+> this command to copy from source to dest.
+COPY source dest == COPY . . (to copy all files in the relative path to the working dir specified in the Dockerfile /app)
+
+> to determine the port used for the app, just for documentation.n      
+EXPOSE 4000
+
+> commands to be used 
+CMD [ "npm", "start" ]
+
+Note: 
+RUN - command triggers while we build the docker image.
+CMD - command triggers while we launch the created docker image.
+
+#####################
+#  Docker Commands  #
+#####################
+
+# to create image from Dockerfile, it is better to name that image using -t "imagename", 
+# . used to build from Dockerfile in that relative path
+# we can use the created image to run the container.
+docker build -t express-node-app . 
+
+# to list all docker images:
+docker image ls
+
+# to run container from image use below command and give the container name for good design:
+docker run --name express-node-app-container -d express-node-app
+-d => (detached mode) to not use our terminal as docker container terminal 
+
+# to show all running containers:
+docker ps
+
+# to stop running container:
+docker stop express-node-app-container
+
+# to remove container 
+docker rm express-node-app-container -f     => express-node-app-container is the container name
+
+# container is isolated environment, make port forwarding to run docker container on port 4000
+# 4000:4000 => will let port 4000 on our machine call port 4000 on container
+docker run --name express-node-app-container -d -p 4000:4000 express-node-app
