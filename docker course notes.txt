@@ -1,7 +1,7 @@
 #################
 #  Dockerfile	#
 #################
-
+# contains how the application will run inside container.
 # docker file used in this project with details, note that Docker extension in VS code help more in writing the file.
 > this line to load the baseImage but for simplicity you can use (FROM node:14) here 14 is node version or (FROM python), use From and the baseimage for your project.
 FROM baseImage
@@ -56,3 +56,17 @@ docker rm express-node-app-container -f     => express-node-app-container is the
 # container is isolated environment, make port forwarding to run docker container on port 4000
 # 4000:4000 => will let port 4000 on our machine call port 4000 on container
 docker run --name express-node-app-container -d -p 4000:4000 express-node-app
+
+
+#####################
+#   General Notes   #
+#####################
+
+> (https://hub.docker.com) Docker hub contains all images you need and open source which means that i can publish on it my own image.
+like github.
+> Dockerfile contains how the application will run inside container.
+> we can create multiple containers from the image.
+> Docker image consists of layers (for example, layer1 is node:14 and layer2 is app files, and so on...), see photo 
+> each container can hold a service or same app can be on multiple containers each service on its container.
+
+
