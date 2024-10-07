@@ -1,0 +1,11 @@
+#version of docker compose
+version: "3" 
+#services are which containers you have.
+services:
+  node-app: #any name, this will be name of the app in this container
+    container_name: express-node-app-container
+    build: . #will reach the Dockerfile of relative path
+    volumes: #relative pathes
+      - ./src:/app/src:ro #local path : container path : read only
+    ports: 
+      - "4000:4000"
