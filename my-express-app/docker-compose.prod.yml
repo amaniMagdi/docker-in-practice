@@ -1,0 +1,7 @@
+#version of docker compose
+version: "3" 
+#services are which containers you have.
+services:
+  node-app: #any name, this will be name of the app in this container
+    environment:
+      - NODE_ENV=production #environment variable
