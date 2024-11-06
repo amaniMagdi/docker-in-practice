@@ -1,14 +1,20 @@
-FROM node:14
+FROM node:14 AS base
+#In some languages like python we need to install some instructions on 
+#the container itself regardless the environment.
+#to be used for both development and production environments. So we use the base stage.
+
+FROM node:14 AS development
 WORKDIR /app
 COPY package.json .
-# this argument will be sent from docker-compose file
-ARG NODE_ENV 
-# using \ means will continue the code in the next line
-RUN if ["$NODE_ENV" = "production" ];\ 
-# --only=production will install only production dependencies
-then npm install --only=production;\
-else npm install;\
-fi
+RUN npm install
 COPY . .
 EXPOSE 4000
 CMD [ "npm", "run", "start-dev" ]
+
+FROM node:14 AS production
+WORKDIR /app
+COPY package.json .
+RUN npm install
+COPY . .
+EXPOSE 4000
+CMD [ "npm", "run", "start" ]
