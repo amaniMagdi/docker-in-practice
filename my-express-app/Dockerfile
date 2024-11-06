@@ -14,7 +14,7 @@ CMD [ "npm", "run", "start-dev" ]
 FROM node:14 AS production
 WORKDIR /app
 COPY package.json .
-RUN npm install
+RUN npm install --only=production
 COPY . .
 EXPOSE 4000
 CMD [ "npm", "run", "start" ]
