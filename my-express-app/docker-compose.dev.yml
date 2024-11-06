@@ -1,6 +1,12 @@
 version: "3" 
 services:
-  node-app: 
+  node-app:
+    build:
+      #context: Dokerfile location to build from
+      #here build from dockerfile in the same directory as this file.
+      context: .
+      args: 
+        - NODE_ENV=development
     volumes: 
       #local path : container path : read only
       - ./src:/app/src:ro 
